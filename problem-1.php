@@ -1,56 +1,49 @@
 <?php
 
+function readInput() {
+    echo "Enter a list of integers:\n";
+    $input = trim(fgets(STDIN));
 
-$listOfIntegers =  readline('Enter a list of integers: ');
-
-
-if ($listOfIntegers == "") {
-    echo 'there is not found any integer' . "\n";
-    $listOfIntegers = readline('Enter a list of integers: ');
-   
-}
-
-
-if (!preg_match('/\s/', $listOfIntegers)) {
-    if (!is_numeric($listOfIntegers)) {
-        echo "The input is not a valid number.";
-        return;
+    while (empty($input)) {
+        echo "input cannot be empty.Please Enter a list of integers:\n";
+        $input = trim(fgets(STDIN));
     }
-    if ($listOfIntegers < 0) {
-        $listOfIntegers *= -1;
-    }
+    return $input;
 }
-
-
-$array = explode(' ', $listOfIntegers);
-
-    function minimumOfAbsoluteNum( array $array) {
-        $min = $array[0];
-        foreach ($array as $num) {
-            if (!is_numeric($num)) {
-                echo 'This is not valid number List!' . "\n";
-                
-                 return;
-            }
-            if ($num < 0) {
-                $num *= -1;
-            }
-            if ($num == 0) {
-                $num *= 0;
-            }
-            
-            if ($num < $min ) {
-                $min = $num;
-            }
+function validatyCheck($input)  {
+    $numbers = explode(' ', $input);
+    $validNumbers = [];
+    foreach ($numbers as  $num) {
+        if (is_numeric($num)) {
+           $validNumbers[] = (int) $num;
+        }else{
+            echo "this is unvalid input.please Enter a valid integer list:\n";
+            $input = trim(fgets(STDIN));
+            return validatyCheck($input);
         }
-        return 'Minimum Absolute Number: ' .   (int) $min;
-    
     }
-    
+    return $validNumbers;
+    // var_dump($validNumbers);
+}
+function minimumOfAbsoluteNum($numbers){
+    $min = $numbers[0];
+    foreach ($numbers as $num) {
+        if ($num < 0) {
+            $num *= -1;
+        }
+        if ($num == 0) {
+            $num *= 0;
+        }
+        
+        if ($num < $min ) {
+            $min = $num;
+        }
+    }
+    return $min;
+}                                                         
 
-    
-
-
- echo minimumOfAbsoluteNum($array);
-
-?>
+$input = readInput();
+$numbers = validatyCheck($input);
+// var_dump($numbers);
+$result = minimumOfAbsoluteNum($numbers);
+echo "Minimum Absolute Number is $result.";

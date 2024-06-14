@@ -1,12 +1,18 @@
 <?php
 
-$length = (int) readline('Enter a length number: ');
-var_dump($length);
-function pyramidOfStar(int $length) {
-    if ($length <= 0) {
-        echo 'Enter a positive number';
-        return;
+function readInputNumber() {
+    echo "Enter a number of pyramid length:\n";
+    $length =  trim(fgets(STDIN));
+    while (empty($length)|(!is_numeric($length))|$length <= 0) {
+        echo "You must give a valid number of pyramid length:\n";
+        $length = trim(fgets(STDIN));
     }
+    
+    return $length;
+}
+
+function pyramidOfStar( $length) {
+    
     for ($i=1; $i <= $length; $i++) { 
         $star = "*";
 
@@ -15,4 +21,5 @@ function pyramidOfStar(int $length) {
     }
     
 }
- pyramidOfStar($length);
+$length = readInputNumber();
+pyramidOfStar($length);
