@@ -37,5 +37,4 @@ echo sumOfDigits($number);
 
 
 
-
 ?>

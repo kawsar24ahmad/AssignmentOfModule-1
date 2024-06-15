@@ -8,7 +8,7 @@ function readInputNumber() {
         $length = trim(fgets(STDIN));
     }
     
-    return $length;
+    return $length *= 2;
 }
 
 function pyramidOfStar( $length) {
